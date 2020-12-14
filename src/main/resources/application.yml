@@ -1,0 +1,65 @@
+spring:
+  kafka:
+    bootstrap-servers: asus:9092
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: asus
+#        streams:
+#          binder:
+#            application-id: KafkApp
+
+      function:
+        definition: aggregateTemperatureTable
+#        definition: deserialize;aggregateTemperature;aggregateWind;aggregatePressure;aggregateRainYear;aggregateTemperatureTable
+#        definition: deserialize;logDeserialized
+
+      bindings:
+        logger-in-0:
+          group: loggerGrp
+          destination: pogodarybnik
+
+        deserialize-in-0:
+          group: deserializeGrp
+          destination: pogodarybnik
+        deserialize-out-0:
+          group: deserializeGroOut
+          destination: pogodarybnikDeserialized
+#          producer:
+#            partition-key-expression: payload.dateTime
+
+        logDeserialized-in-0:
+          group: logDeserializedGrp
+          destination: pogodarybnikDeserialized
+
+        aggregateTemperature-in-0:
+          group: aggregateTemperatureGrp
+          destination: pogodarybnikDeserialized
+        aggregateTemperature-out-0:
+          destination: aggregatedTemperature
+
+        aggregateTemperatureTable-in-0:
+          group: aggregateTemperatureTableGrp
+          destination: pogodarybnikDeserialized
+        aggregateTemperatureTable-out-0:
+          destination: aggregatedTemperatureTable
+
+        aggregateWind-in-0:
+          group: aggregateWindGrp
+          destination: pogodarybnikDeserialized
+        aggregateWind-out-0:
+          destination: aggregatedWind
+
+        aggregatePressure-in-0:
+          group: aggregatePresureGrp
+          destination: pogodarybnikDeserialized
+        aggregatePressure-out-0:
+          destination: aggregatedPressure
+
+        aggregateRainYear-in-0:
+          group: aggregateRainYearGrp
+          destination: pogodarybnikDeserialized
+        aggregateRainYear-out-0:
+          destination: aggregatedRainYear

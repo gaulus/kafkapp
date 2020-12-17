@@ -12,9 +12,9 @@ spring:
 #            application-id: KafkApp
 
       function:
-        definition: aggregateTemperatureTable
-#        definition: deserialize;aggregateTemperature;aggregateWind;aggregatePressure;aggregateRainYear;aggregateTemperatureTable
 #        definition: deserialize;logDeserialized
+        definition: deserialize;aggregateTemperature;aggregateWind;aggregatePressure;aggregateRainYear
+#        definition: aggregateTemperatureTable
 
       bindings:
         logger-in-0:
